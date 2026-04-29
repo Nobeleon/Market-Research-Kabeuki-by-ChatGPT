@@ -1,0 +1,1 @@
+# Market-Research-Kabeuki-by-ChatGPT
