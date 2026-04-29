@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kabeukina Umi | Market Research Dashboard 2026</title>
+  <style>
+    :root{
+      --cream:#F7F1E8;
+      --paper:#FFFDF8;
+      --brown:#4A2E21;
+      --cinnamon:#9B5424;
+      --red:#A8231C;
+      --blue:#2F6598;
+      --purple:#68409A;
+      --gold:#C28A19;
+      --muted:#7B6A5F;
+      --line:#E3D7C8;
+      --shadow:0 14px 40px rgba(74,46,33,.10);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--cream);color:var(--brown);font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;line-height:1.55}
+    a{color:var(--blue);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1220px;margin:auto;padding:28px}
+    .nav{position:sticky;top:0;z-index:20;background:rgba(247,241,232,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .nav-inner{max-width:1220px;margin:auto;display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 28px;overflow:auto}
+    .brand{font-weight:900;letter-spacing:.02em;white-space:nowrap}
+    .nav a{font-size:13px;color:var(--brown);padding:8px 12px;border-radius:999px;white-space:nowrap}
+    .nav a:hover{background:var(--paper);text-decoration:none}
+    .hero{margin:22px 0 28px;padding:42px;border-radius:32px;background:linear-gradient(135deg,#fff8ed 0%,#f7e5d1 52%,#e9d3bf 100%);box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .hero:after{content:"";position:absolute;right:-70px;top:-80px;width:260px;height:260px;background:radial-gradient(circle,var(--cinnamon),transparent 66%);opacity:.18;border-radius:50%}
+    .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:800}
+    h1{font-family:Georgia, 'Times New Roman', serif;font-size:clamp(38px,6vw,76px);line-height:.95;margin:10px 0 18px;max-width:900px}
+    h2{font-family:Georgia, 'Times New Roman', serif;font-size:clamp(30px,4vw,48px);line-height:1.05;margin:0 0 14px}
+    h3{font-size:20px;margin:0 0 8px}
+    h4{font-size:15px;margin:16px 0 6px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+    p{margin:0 0 10px}
+    .sub{font-size:18px;color:#5e4a3f;max-width:860px}
+    .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(255,253,248,.75);border-radius:999px;padding:8px 12px;font-size:13px;color:#5e4a3f}
+    .section{margin:28px 0;padding:30px;border-radius:var(--radius);background:var(--paper);box-shadow:var(--shadow);border:1px solid rgba(227,215,200,.75)}
+    .section.alt{background:#fff8ef}
+    .grid{display:grid;gap:16px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    @media(max-width:920px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.hero{padding:28px}.wrap{padding:18px}.nav-inner{padding:10px 18px}}
+    .card{border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px;box-shadow:0 8px 24px rgba(74,46,33,.05)}
+    .card strong{color:var(--brown)}
+    .metric{font-family:Georgia, 'Times New Roman', serif;font-size:36px;font-weight:900;line-height:1;color:var(--cinnamon)}
+    .metric small{font-size:14px;font-family:inherit;color:var(--muted)}
+    .insight{border-left:6px solid var(--gold);background:#fff9e9;padding:16px 18px;border-radius:14px;margin:16px 0;color:#4f3b2e}
+    .warning{border-left-color:var(--red);background:#fff0ee}
+    .blue{border-left-color:var(--blue);background:#eef6ff}
+    .purple{border-left-color:var(--purple);background:#f5efff}
+    .source-chip{display:inline-block;font-size:11px;letter-spacing:.02em;background:#f2e9dc;border:1px solid #e1d2c1;color:#665246;border-radius:999px;padding:4px 9px;margin:4px 4px 0 0}
+    .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0 18px}
+    button,.selectlike{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 13px;color:var(--brown);font-weight:750;cursor:pointer}
+    button.active{background:var(--brown);color:white;border-color:var(--brown)}
+    input{border:1px solid var(--line);background:#fff;border-radius:999px;padding:11px 14px;min-width:240px;color:var(--brown)}
+    table{width:100%;border-collapse:separate;border-spacing:0 10px;font-size:14px}
+    th{text-align:left;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding:0 12px}
+    td{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 12px;vertical-align:top}
+    td:first-child{border-left:1px solid var(--line);border-radius:14px 0 0 14px;font-weight:850}
+    td:last-child{border-right:1px solid var(--line);border-radius:0 14px 14px 0}
+    .tag{display:inline-block;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:800;margin:2px 4px 2px 0;background:#f0e1d2;color:#70421f}
+    .tag.national{background:#e9f2ff;color:#225584}.tag.direct{background:#fce7e3;color:#8c2018}.tag.risk{background:#fff0cc;color:#82600b}.tag.win{background:#eaf7ee;color:#20613a}
+    .score{height:10px;border-radius:999px;background:#eadfce;overflow:hidden;margin-top:6px}
+    .score span{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--cinnamon));border-radius:inherit}
+    .map{display:grid;grid-template-columns:1fr 1fr;gap:12px;border:1px solid var(--line);border-radius:22px;padding:12px;background:#fbf5ec}
+    .quadrant{min-height:150px;background:#fff;border:1px dashed #d8c7b6;border-radius:18px;padding:16px;position:relative}
+    .quadrant .label{font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+    .ku-dot{display:inline-block;background:var(--red);color:#fff;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:900;margin-top:12px}
+    .timeline{position:relative;margin-top:12px}
+    .step{display:grid;grid-template-columns:110px 1fr;gap:14px;border-left:4px solid var(--cinnamon);padding:0 0 20px 18px;margin-left:12px}
+    .step:last-child{padding-bottom:0}.month{font-weight:900;color:var(--cinnamon)}
+    .kpi-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .kpi{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff}
+    .kpi input{min-width:unset;width:auto;margin-top:4px}
+    .footer{padding:32px 0 60px;color:var(--muted);font-size:13px}
+    .small{font-size:13px;color:var(--muted)}
+    .print-note{display:none}
+    @media print{.nav,.toolbar,button,input{display:none}.section,.hero{box-shadow:none;break-inside:avoid}.wrap{max-width:none}.print-note{display:block}.source-chip{border:1px solid #ccc}}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">Kabeukina Umi · Market Research</div>
+      <div>
+        <a href="#summary">Executive</a>
+        <a href="#market">Tren</a>
+        <a href="#competitors">Kompetitor</a>
+        <a href="#audience">Audience</a>
+        <a href="#white-space">White Space</a>
+        <a href="#strategy">Strategi</a>
+        <a href="#kpi">KPI</a>
+        <a href="#sources">Sumber</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <header class="hero">
+      <div class="eyebrow">Dashboard Report · Bogor · Launch Kedai Juni 2026</div>
+      <h1>Market Research Kabeukina Umi 2026</h1>
+      <p class="sub">Analisis pasar, kompetitor, target audience, white space, pricing, channel, dan rencana launch untuk toko kue premium homemade dengan rasa rumah. Karena ternyata membuka kedai bukan cuma soal oven panas dan niat baik, manusia memang hobi membuat hidup lebih menantang.</p>
+      <div class="meta">
+        <span class="pill">Brand: Kabeukina Umi</span>
+        <span class="pill">Kategori: premium homemade bakery</span>
+        <span class="pill">Lokasi awal: Bogor</span>
+        <span class="pill">Core: brownies · cookies · burnt cheesecake · birthday cake · snack box · pudding · minuman</span>
+      </div>
+    </header>
+
+    <section id="summary" class="section">
+      <div class="eyebrow">Executive Summary</div>
+      <h2>Kesimpulan besar</h2>
+      <div class="insight">
+        <strong>Opportunity utama:</strong> Kabeukina Umi tidak perlu menjadi “bakery premium nasional” versi kecil. Yang lebih tajam adalah menjadi <strong>premium homemade Bogor</strong> yang punya rasa konsisten, packaging cantik, sistem order rapi, dan cerita keluarga yang benar-benar terasa. Premium, tapi tidak dingin. Lokal, tapi tidak kampungan. Home feel, tapi bukan amatiran.
+      </div>
+      <div class="grid grid-4">
+        <div class="card">
+          <div class="metric">5,28 jt</div>
+          <p><strong>usaha penyedia makanan/minuman</strong> di Indonesia pada 2024. Pasarnya besar, tapi penuh sesak seperti grup WA keluarga.</p>
+          <span class="source-chip">BPS Statistik Penyediaan Mamin 2024</span>
+        </div>
+        <div class="card">
+          <div class="metric">±5%</div>
+          <p><strong>proyeksi pertumbuhan F&B 2025</strong> menurut analisis CRIF. Artinya pasar tetap hidup, tapi konsumen makin selektif.</p>
+          <span class="source-chip">CRIF Indonesia F&B Outlook 2025</span>
+        </div>
+        <div class="card">
+          <div class="metric">103 jt</div>
+          <p><strong>pengguna Instagram Indonesia awal 2025</strong>. IG tetap kanal discovery dan validasi brand F&B yang wajib serius.</p>
+          <span class="source-chip">DataReportal Digital 2025</span>
+        </div>
+        <div class="card">
+          <div class="metric">3 tier</div>
+          <p><strong>strategi harga yang disarankan:</strong> Signature Premium, Everyday Joy, dan Pintu Masuk. Kualitas tetap, ukuran/format yang berubah.</p>
+          <span class="source-chip">Kabeukina Brand Constitution</span>
+        </div>
+      </div>
+      <div class="grid grid-3" style="margin-top:16px">
+        <div class="card">
+          <h3>Diagnosis pasar</h3>
+          <p>Konsumen Bogor punya banyak pilihan: bakery legacy, patisserie café, custom cake, cheesecake/brownies spesialis, dan chain nasional. Mereka tidak kekurangan kue. Mereka kekurangan alasan kuat untuk percaya pada satu brand.</p>
+        </div>
+        <div class="card">
+          <h3>Diagnosis kompetitor</h3>
+          <p>Kompetitor nasional menang di standardisasi, visibility, dan gifting. Kompetitor lokal menang di kedekatan dan fleksibilitas. Celah Kabeuki: <strong>standar nasional + rasa rumah + akar Bogor</strong>.</p>
+        </div>
+        <div class="card">
+          <h3>Mandat launch</h3>
+          <p>Jangan launch semua produk sekaligus. Launch dengan hero SKU, testing harga, proof of freshness, Google review engine, dan konten behind-the-scenes yang membuktikan “made with hands”.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="brand-anchor" class="section alt">
+      <div class="eyebrow">Brand Anchor dari Dokumen Internal</div>
+      <h2>Yang harus dijaga saat riset diterjemahkan jadi keputusan</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Rasa dari Rumah</h3>
+          <p>Positioning internal: toko kue rumah premium yang dibuat dengan hati, fresh, made by order, homemade, non-mass production, high quality taste, warm, comforting, dan terasa seperti rumah.</p>
+          <span class="source-chip">First Preview Kabeukina Umi</span>
+        </div>
+        <div class="card">
+          <h3>Resep adalah hukum</h3>
+          <p>Brand Constitution menempatkan resep sebagai nilai tertinggi. Saat profit, efisiensi, ekspansi, dan investor bertabrakan dengan rasa, resep menang. Ini bukan puisi, ini rem tangan bisnis.</p>
+          <span class="source-chip">Brand Constitution</span>
+        </div>
+        <div class="card">
+          <h3>Bogor Roots</h3>
+          <p>Brand harus tetap terasa Bogor bahkan ketika tumbuh. Warna, bahasa Sunda, bahan khas, dan cerita keluarga bukan ornamen. Itu moat kompetitif.</p>
+          <span class="source-chip">Brand Constitution</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="market" class="section">
+      <div class="eyebrow">Tren Pasar F&B 2025–2026 dan Ke Depan</div>
+      <h2>Pasar tetap besar, tapi pelanggan makin perhitungan</h2>
+      <div class="insight blue">
+        <strong>Highlight insight:</strong> Strategi terbaik bukan “murah”, tapi <strong>affordable premium</strong>. Kabeuki harus memberi pintu masuk harga lewat ukuran/format kecil, bukan menurunkan bahan atau memberi diskon brutal. Diskon besar membuat premium terasa seperti barang sisa. Manusia menyebutnya promo, brand menyebutnya luka batin.
+      </div>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>1. Value-conscious premium</h3>
+          <p>Inflasi dan tekanan daya beli membuat konsumen lebih sensitif harga, tetapi mereka tetap mencari kualitas, rasa, pengalaman, dan emotional satisfaction.</p>
+          <p><strong>Implikasi Kabeuki:</strong> buat mini brownies, slice cheesecake, tester, dan snack box sebagai pintu masuk. Jangan rusak persepsi lewat flash sale besar.</p>
+          <span class="source-chip">Lesaffre APAC 2025</span><span class="source-chip">CRIF 2025</span>
+        </div>
+        <div class="card">
+          <h3>2. Health, halal, dan ingredient transparency</h3>
+          <p>Konsumen Indonesia memberi perhatian besar pada rasa, halal, natural ingredients, keamanan, dan premium quality untuk kategori roti, pastry, snack, dan sweet goods.</p>
+          <p><strong>Implikasi:</strong> tampilkan “dibuat hari ini”, ingredient highlights, halal readiness, less-sweet option, dan care card.</p>
+          <span class="source-chip">Innova 2025 Indonesia</span><span class="source-chip">PwC Voice of Consumer 2025</span>
+        </div>
+        <div class="card">
+          <h3>3. Texture-led bakery</h3>
+          <p>Tren bakery global bergerak ke kontras tekstur: crispy-chewy, soft-crunchy, flaky-rich fillings. Ini cocok untuk brownies fudgy, crunchy topping, burnt cheesecake brulee, dan cookies bertekstur.</p>
+          <p><strong>Implikasi:</strong> jual “texture proof” di konten dan packaging, bukan sekadar klaim enak.</p>
+          <span class="source-chip">Taste Tomorrow 2026</span>
+        </div>
+        <div class="card">
+          <h3>4. Local x global flavor</h3>
+          <p>Rasa lokal yang dipadukan dengan format modern punya potensi: talas Bogor, pala, kayu manis, kopi lokal, pandan, gula aren, dan elemen Sunda.</p>
+          <p><strong>Implikasi:</strong> jangan jadi “Indonesia generic”. Jadilah Bogor yang layak dibawa pulang.</p>
+          <span class="source-chip">Innova 2025</span><span class="source-chip">Kabeuki Brand Constitution</span>
+        </div>
+        <div class="card">
+          <h3>5. Social commerce & discovery</h3>
+          <p>Instagram dan TikTok sangat besar untuk brand discovery. IG unggul untuk riset brand/produk, sementara TikTok kuat untuk penemuan, impuls, dan proof konten.</p>
+          <p><strong>Implikasi:</strong> konten harus menunjukkan proses, tekstur, packing, momen keluarga, dan toko. Foto produk doang = katalog sedih.</p>
+          <span class="source-chip">DataReportal 2025</span><span class="source-chip">We Are Social 2026</span>
+        </div>
+        <div class="card">
+          <h3>6. Sustainability & compliance</h3>
+          <p>Packaging premium bergerak ke bahan yang lebih bertanggung jawab, paper-based, jelas informasi produk, dan siap regulasi halal/label nutrisi.</p>
+          <p><strong>Implikasi:</strong> pilih kemasan food-grade, halal-aware, recyclable where possible, dan beri QR story + tanggal produksi.</p>
+          <span class="source-chip">Antara 2026</span><span class="source-chip">MUI/BPJPH 2025</span><span class="source-chip">Reuters 2025</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="competitors" class="section alt">
+      <div class="eyebrow">Analisis Kompetitor</div>
+      <h2>Benchmark kompetitor langsung dan tidak langsung</h2>
+      <div class="insight">
+        <strong>Highlight insight:</strong> Di Bogor, kompetisi bukan cuma “siapa lebih enak”. Ada empat arena: <strong>trust</strong>, <strong>packaging gifting</strong>, <strong>experience kedai</strong>, dan <strong>konsistensi operasional</strong>. Kabeuki harus menang minimal di trust + gifting + warmth, lalu perlahan mengejar experience kedai.
+      </div>
+      <div class="toolbar">
+        <button class="filter active" data-filter="all">Semua</button>
+        <button class="filter" data-filter="direct">Langsung Bogor</button>
+        <button class="filter" data-filter="national">Nasional / Chain</button>
+        <button class="filter" data-filter="watch">Watchlist</button>
+        <input id="searchBox" placeholder="Cari kompetitor, produk, harga..." />
+      </div>
+      <table id="competitorTable">
+        <thead>
+          <tr>
+            <th>Brand</th><th>Tipe</th><th>Benchmark produk & harga publik</th><th>Positioning & presence</th><th>Ancaman</th><th>Gap untuk Kabeuki</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-type="direct">
+            <td>Prouvé Patisserie</td>
+            <td><span class="tag direct">direct</span><span class="tag">café-patisserie</span></td>
+            <td>Cake slice/café dessert; salah satu review publik menyebut cake sekitar Rp45 ribu sebelum pajak. Menu: cake, choux, pastry, gelato, savory.</td>
+            <td>Fresh everyday, premium ingredients, outlet café modern di Baranangsiang, cocok WFC/family/friends.</td>
+            <td>Experience kedai dan presentasi dessert kuat.</td>
+            <td>Ambil posisi lebih hangat, family-rooted, Bogor-Sunda, dan gifting brownies/cheesecake yang lebih personal.</td>
+          </tr>
+          <tr data-type="direct">
+            <td>Softbite Cake</td>
+            <td><span class="tag direct">direct</span><span class="tag">custom cake</span></td>
+            <td>Custom cake, brownie, cheesecake; public listing menyebut fresh bake daily, limited batch, lokasi Bogor Utara.</td>
+            <td>Spesialis custom cake dan dessert homemade-ish dengan kanal Instagram/WA.</td>
+            <td>Dekat dengan kebutuhan birthday/custom dan fleksibilitas pesanan.</td>
+            <td>Kabeuki perlu sistem custom cake yang lebih premium: katalog jelas, size chart, lead time, kartu ucapan, dan delivery-safe packaging.</td>
+          </tr>
+          <tr data-type="direct">
+            <td>BunBun Bakery</td>
+            <td><span class="tag direct">direct</span><span class="tag">premium bakery</span></td>
+            <td>Produk website: hampers Lebaran premium, roti sisir, onde-onde, bolu tape, brownies lumer. Public listing juga menampilkan burnt cheesecake sekitar Rp80 ribu.</td>
+            <td>Premium bakery dengan portofolio luas dan klaim natural/premium.</td>
+            <td>Range produk lebar dan sudah familiar sebagai bakery premium lokal.</td>
+            <td>Kabeuki jangan terlalu melebar. Fokus hero: fudgy brownies, burnt cheesecake, cookies, snack box, lalu minuman.</td>
+          </tr>
+          <tr data-type="direct">
+            <td>Mister & Misses Cakes</td>
+            <td><span class="tag direct">direct</span><span class="tag">cake café</span></td>
+            <td>Cakes, breads, chocolate cake, cheesecake, tarts, artisanal breads; review aggregator menampilkan rating tinggi dan opsi gluten-free.</td>
+            <td>Cake café dengan presentasi menarik dan interior charming.</td>
+            <td>Menang pada variety, café ambience, dan discovery lokal.</td>
+            <td>Kabeuki bisa membedakan lewat “rasa rumah premium” + cerita Umi + packaging window box yang ikonik.</td>
+          </tr>
+          <tr data-type="direct">
+            <td>Michelle Bakery</td>
+            <td><span class="tag direct">direct</span><span class="tag">local bakery</span></td>
+            <td>Public delivery menu: brownies/banana bread medium sekitar Rp87,5–100 ribu; snack tradisional Rp10–16,5 ribu; bolu marmer sekitar Rp104,5 ribu.</td>
+            <td>Bakery lokal established dengan produk harian dan snack.</td>
+            <td>Convenience, pilihan luas, dan harga relatif accessible.</td>
+            <td>Kabeuki tidak perlu perang jumlah SKU. Menang di premium gifting, fresh batch, dan service yang lebih curated.</td>
+          </tr>
+          <tr data-type="direct">
+            <td>Mini Brown Cheese Cake Bogor</td>
+            <td><span class="tag direct">direct</span><span class="tag">cheesecake niche</span></td>
+            <td>Public delivery menu: cheesecake chocolate/matcha/milo sekitar Rp110–120 ribu; cheese tart per piece sekitar Rp17 ribu.</td>
+            <td>Niche cheesecake/dessert delivery.</td>
+            <td>Berkompetisi langsung di kategori burnt cheesecake dan dessert box.</td>
+            <td>Kabeuki perlu signature cheesecake dengan tekstur dan cerita khas, bukan hanya varian rasa.</td>
+          </tr>
+          <tr data-type="direct">
+            <td>Spatula Bakery Pizza Ice Cream</td>
+            <td><span class="tag direct">direct</span><span class="tag">family café</span></td>
+            <td>Bakery, pizza, ice cream café di Sentul dengan volume review tinggi.</td>
+            <td>Family hangout dan café experience.</td>
+            <td>Traffic keluarga dan dine-in lebih kuat.</td>
+            <td>Kabeuki bisa jadi kedai kecil yang lebih intimate, bukan family restaurant besar.</td>
+          </tr>
+          <tr data-type="national">
+            <td>The Harvest</td>
+            <td><span class="tag national">national</span><span class="tag">premium cake chain</span></td>
+            <td>Contoh produk: Less Sugar Triple Chocolate small rectangle Rp270 ribu, regular square Rp415 ribu. Banyak outlet Bogor: Pajajaran, Tajur, Dramaga, Cibinong.</td>
+            <td>European-style bakery & pastry chain, premium gifting, standardized outlet.</td>
+            <td>Brand trust nasional, display cake, packaging, dan occasion cake kuat.</td>
+            <td>Kabeuki harus menjadi alternatif yang lebih personal, fresh, local, dan tidak terasa “chain”.</td>
+          </tr>
+          <tr data-type="national">
+            <td>Dapur Cokelat</td>
+            <td><span class="tag national">national</span><span class="tag">chocolate cake chain</span></td>
+            <td>Public official catalog: Fudge Brownies Rp93 ribu; whole cake berbagai varian Rp120–420 ribu.</td>
+            <td>Chocolate-focused, reliable, banyak pilihan cake dan dessert.</td>
+            <td>Harga brownies/cake menjadi anchor kuat untuk perbandingan.</td>
+            <td>Kabeuki perlu jaga brownies box di range kompetitif namun punya pembeda: fudgy, homemade, fresh batch, window box.</td>
+          </tr>
+          <tr data-type="national">
+            <td>Ina Cookies</td>
+            <td><span class="tag national">national</span><span class="tag">premium cookies/hampers</span></td>
+            <td>Official marketplace store: jar premium sekitar Rp85–135 ribu, hampers sekitar Rp253 ribu, mini cookies sekitar Rp40 ribu.</td>
+            <td>Handmade cookies, premium ingredients, hygienic, kuat di seasonal hampers.</td>
+            <td>Hampers Lebaran/Natal dan gifting sudah sangat mapan.</td>
+            <td>Kabeuki perlu hampers yang bukan cuma cantik, tapi punya cerita Bogor + kartu personal + tier harga jelas.</td>
+          </tr>
+          <tr data-type="national">
+            <td>Holland Bakery</td>
+            <td><span class="tag national">national</span><span class="tag">mass premium bakery</span></td>
+            <td>Roti/pastry publik banyak di kisaran Rp11–29 ribu; brownies almond di delivery sekitar Rp100 ribuan; jaringan lebih dari 470 outlet.</td>
+            <td>Legacy bakery, convenience, trust, kategori luas: bread, snack, pudding, cake, cookies, snack box.</td>
+            <td>Menang di akses, harga harian, dan top-of-mind.</td>
+            <td>Kabeuki jangan terlihat seperti tiruan bakery mass. Mainkan scarcity, fresh batch, human touch, dan local warmth.</td>
+          </tr>
+          <tr data-type="national">
+            <td>Bittersweet by Najla</td>
+            <td><span class="tag national">national</span><span class="tag">dessert box</span></td>
+            <td>Public delivery menu: brow box sekitar Rp70 ribu; mini cheesecake cup sekitar Rp55 ribu; hampers dessert box sekitar Rp500 ribu.</td>
+            <td>Pelopor dessert box, kuat di Jabodetabek dan social-led dessert.</td>
+            <td>Packaging dessert box dan impulse purchase kuat.</td>
+            <td>Kabeuki bisa ambil pelajaran: dessert harus visually satisfying, tapi tetap hindari rasa terlalu gimmicky.</td>
+          </tr>
+          <tr data-type="watch">
+            <td>MAKO / Tous Les Jours</td>
+            <td><span class="tag risk">watchlist</span><span class="tag">bakery chain</span></td>
+            <td>MAKO dan TLJ bermain di roti/pastry/cake harian. Public listing menunjukkan roti mulai belasan ribu, slice cake mulai sekitar Rp19 ribu, whole cake mulai Rp135–300 ribuan tergantung kanal.</td>
+            <td>Chain bakery modern: fast, affordable, standardized, cake display kuat.</td>
+            <td>Menjadi pembanding harga harian dan breakfast/snack.</td>
+            <td>Kabeuki tidak perlu ikut semua kategori roti. Beverage + slice cake cukup untuk dine-in, sambil core tetap brownies/cheesecake/cookies.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="grid grid-3">
+        <div class="card"><h3>Price anchor lokal</h3><p>Brownies lokal/delivery Bogor terlihat di kisaran ±Rp87,5–120 ribu; cheesecake niche ±Rp110–120 ribu; cake slice café ±Rp45 ribu.</p></div>
+        <div class="card"><h3>Price anchor nasional</h3><p>Dapur Cokelat brownies Rp93 ribu; Harvest premium cake Rp270–415 ribu; Ina Cookies jar Rp85–135 ribu; hampers ±Rp253 ribu ke atas.</p></div>
+        <div class="card"><h3>Kesimpulan pricing</h3><p>Kabeuki bisa premium tanpa melompat terlalu jauh: premium dibuktikan lewat bahan, tekstur, packaging, dan service, bukan harga yang sok eksklusif.</p></div>
+      </div>
+    </section>
+
+    <section id="audience" class="section">
+      <div class="eyebrow">Target Audience Deep Dive</div>
+      <h2>Siapa yang paling mungkin membeli, mengulang, dan membela brand</h2>
+      <div class="insight purple">
+        <strong>Highlight insight:</strong> Target Kabeuki bukan “semua orang suka kue”. Itu bukan segmen, itu doa. Segmen terkuat adalah orang yang membeli kue sebagai <strong>tanda perhatian</strong>: untuk keluarga, tamu, ulang tahun, kantor, hadiah, atau self-reward yang terasa pantas.
+      </div>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>1. Family Curator</h3>
+          <p><strong>Profil:</strong> Ibu muda/keluarga 30–45, peduli kualitas, halal, aman untuk anak, dan reliable untuk acara rumah.</p>
+          <p><strong>Motivasi:</strong> ingin menyajikan yang enak tanpa terlihat asal beli.</p>
+          <p><strong>Trigger:</strong> birthday cake, snack box, hampers, pudding, cookies.</p>
+        </div>
+        <div class="card">
+          <h3>2. Young Self-Rewarder</h3>
+          <p><strong>Profil:</strong> 22–34, pekerja/mahasiswa, suka café, TikTok/IG discovery, value aesthetic tapi tidak mau ketipu packaging kosong.</p>
+          <p><strong>Motivasi:</strong> “aku layak dessert enak hari ini”. Benar, kapitalisme pun ikut tepuk tangan.</p>
+          <p><strong>Trigger:</strong> slice cheesecake + coffee, mini brownies, seasonal drink.</p>
+        </div>
+        <div class="card">
+          <h3>3. Gifting Buyer</h3>
+          <p><strong>Profil:</strong> profesional, keluarga, pasangan, corporate buyer, reseller seasonal.</p>
+          <p><strong>Motivasi:</strong> ingin hadiah yang terlihat niat, rapi, aman sampai tujuan.</p>
+          <p><strong>Trigger:</strong> window box brownies, hampers, card, delivery tracking.</p>
+        </div>
+        <div class="card">
+          <h3>4. Bogor Visitor / Oleh-Oleh Seeker</h3>
+          <p><strong>Profil:</strong> warga Jabodetabek yang lewat Bogor/Puncak, wisatawan keluarga, pencari oleh-oleh non-mainstream.</p>
+          <p><strong>Motivasi:</strong> membawa pulang sesuatu yang terasa lokal dan layak dibanggakan.</p>
+          <p><strong>Trigger:</strong> “Rasa dari Rumah Bogor”, talas/pala/kayu manis, packaging travel-safe.</p>
+        </div>
+        <div class="card">
+          <h3>5. B2B Office/Event Buyer</h3>
+          <p><strong>Profil:</strong> HR, admin kantor, sekolah, komunitas, wedding/event organizer, café reseller.</p>
+          <p><strong>Motivasi:</strong> butuh snack box yang konsisten, invoice rapi, delivery tepat waktu.</p>
+          <p><strong>Trigger:</strong> paket Rp25–55 ribu, label brand, invoice, sample kit.</p>
+        </div>
+        <div class="card">
+          <h3>Willingness to Pay: strategic range</h3>
+          <p><strong>Daily treat:</strong> Rp18–45 ribu. <strong>Brownies box:</strong> Rp95–160 ribu. <strong>Burnt cheesecake:</strong> Rp120–220 ribu. <strong>Birthday cake:</strong> Rp250–650 ribu. <strong>Snack box:</strong> Rp25–55 ribu. <strong>Hampers:</strong> Rp180–550 ribu.</p>
+          <p class="small">Range ini harus divalidasi dengan COGS, margin, dan conversion test. Jangan jadikan tabel ini kitab suci kedua setelah resep.</p>
+        </div>
+      </div>
+      <div class="grid grid-2" style="margin-top:16px">
+        <div class="card">
+          <h3>Pain points konsumen</h3>
+          <ul>
+            <li>Premium chain terasa mahal tapi dingin dan generik.</li>
+            <li>Homemade enak tapi sering packaging/order system kurang rapi.</li>
+            <li>Delivery kue mudah rusak, foto cantik tapi sampainya trauma.</li>
+            <li>Terlalu manis, kurang jelas bahan, halal, dan tanggal produksi.</li>
+            <li>Snack box sering terasa asal tempel logo.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Motivasi pembelian</h3>
+          <ul>
+            <li>Trust: dibuat fresh, oleh tangan manusia, bukan stok beku.</li>
+            <li>Emotion: rasa rumah, perhatian, hangat, humble.</li>
+            <li>Occasion: ulang tahun, kirim hadiah, meeting, keluarga datang.</li>
+            <li>Status halus: packaging premium tanpa terlihat pamer.</li>
+            <li>Local pride: Bogor yang lebih berkelas dari oleh-oleh generik.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="white-space" class="section alt">
+      <div class="eyebrow">Peluang Diferensiasi</div>
+      <h2>White space yang bisa dimiliki Kabeukina Umi</h2>
+      <div class="map">
+        <div class="quadrant">
+          <div class="label">Mass · Value</div>
+          <p>Holland Bakery, bakery harian, snack murah.</p>
+        </div>
+        <div class="quadrant">
+          <div class="label">Mass · Premium</div>
+          <p>The Harvest, Dapur Cokelat, MAKO/TLJ. Kuat di sistem dan display, tapi terasa chain.</p>
+        </div>
+        <div class="quadrant">
+          <div class="label">Homemade · Value</div>
+          <p>Online baker, PO rumahan, snack box murah. Hangat, tapi sering kurang konsisten.</p>
+        </div>
+        <div class="quadrant">
+          <div class="label">Homemade · Premium</div>
+          <p><span class="ku-dot">Kabeukina Umi</span></p>
+          <p>Fresh, handmade key steps, Bogor roots, premium packaging, sistem order rapi, harga bertingkat.</p>
+        </div>
+      </div>
+      <div class="grid grid-3" style="margin-top:16px">
+        <div class="card">
+          <h3>1. Bogor, bukan generic local</h3>
+          <p>Gunakan Sunda/Bogor secara cerdas: <em>Kasedep Sadayana</em>, <em>Unggal Kue Mawa Bungah</em>, talas, pala, kayu manis, biru langit Puncak, cerita dapur keluarga. Selalu beri terjemahan kecil supaya inklusif.</p>
+        </div>
+        <div class="card">
+          <h3>2. Human touch yang dibuktikan</h3>
+          <p>Konten dan store harus menunjukkan tahap manual: finishing, packing, final tasting. Kalau mengaku homemade tapi kontennya cuma mockup 3D, konsumen akan mencium aroma kepalsuan dari layar.</p>
+        </div>
+        <div class="card">
+          <h3>3. Premium gifting yang hangat</h3>
+          <p>Window box brownies berbentuk rumah, card, story QR, batch number, dan care card. Packaging harus membuat orang merasa “ini niat”, bukan “ini kotak mahal”.</p>
+        </div>
+        <div class="card">
+          <h3>4. Kedai sebagai trust engine</h3>
+          <p>Kedai pertama jangan hanya tempat transaksi. Jadikan dapur cerita: aroma, display, tasting kecil, staff menjelaskan produk, dan Google Review moment.</p>
+        </div>
+        <div class="card">
+          <h3>5. B2B tanpa kehilangan brand</h3>
+          <p>Snack box dan café reseller potensial, tapi harus punya MOQ, packaging standard, kualitas sama, dan batas diskon. B2B bukan alasan menjadi pabrik murah.</p>
+        </div>
+        <div class="card">
+          <h3>6. Minuman sebagai attach-rate</h3>
+          <p>Minuman jangan jadi menu tambahan asal. Fokus 6–8 menu: kopi susu gula aren, americano/latte, teh buah, jus seasonal, dan signature drink Bogor. Targetkan attach rate, bukan barista theater.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="strategy" class="section">
+      <div class="eyebrow">Rekomendasi Strategis</div>
+      <h2>Prioritas action items menuju launch Juni 2026</h2>
+      <div class="insight warning">
+        <strong>Highlight insight:</strong> Musuh launch pertama bukan kompetitor. Musuhnya adalah menu terlalu banyak, operasional belum siap, harga belum diuji, dan konten yang baru dibuat setelah toko buka. Itu bukan strategi, itu panik dengan dekorasi.
+      </div>
+      <div class="timeline">
+        <div class="step"><div class="month">H-90</div><div><h3>Product architecture & COGS lock</h3><p>Finalkan 12–18 SKU launch: 3 hero, 5 everyday, 3 beverage core, 2 snack box, 2 seasonal/tester. Hitung COGS, gross margin, shelf life, dan batas waste.</p></div></div>
+        <div class="step"><div class="month">H-75</div><div><h3>Competitor product audit</h3><p>Beli top product dari minimal 8 kompetitor: brownies, cheesecake, cake slice, cookies/hampers. Nilai rasa, tekstur, packaging, harga, experience order, delivery damage, dan aftertaste.</p></div></div>
+        <div class="step"><div class="month">H-60</div><div><h3>Packaging prototype & drop test</h3><p>Uji window box, paper bag, sticker, seal, card, dan delivery packaging. Simulasikan motor 30–45 menit. Kalau kue sampai rusak, packaging bukan cantik, cuma dekorasi kegagalan.</p></div></div>
+        <div class="step"><div class="month">H-45</div><div><h3>Content bank & creator seeding</h3><p>Siapkan 45–60 konten pendek: making-of, texture pull, founder story, packing ASMR, store progress, tasting reaction, menu education, dan “how to order”.</p></div></div>
+        <div class="step"><div class="month">H-30</div><div><h3>Soft menu test</h3><p>Invite loyal customers dan target baru. Gunakan blind tasting, price ladder test, dan pre-order conversion. Catat bukan hanya “enak”, tapi SKU mana yang dibeli ulang.</p></div></div>
+        <div class="step"><div class="month">Launch</div><div><h3>Soft opening 14 hari</h3><p>Batasi promo. Gunakan tasting bite dan launch bundle kecil, bukan diskon besar. Fokus service time, repeat visit, review, stockout, dan complaint handling.</p></div></div>
+        <div class="step"><div class="month">+90 hari</div><div><h3>Scale only what proves itself</h3><p>SKU yang tidak repeat dibunuh dengan hormat. Mulai B2B snack box, corporate gifting, reseller seasonal, dan delivery channel setelah operasional stabil.</p></div></div>
+      </div>
+
+      <h3 style="margin-top:26px">Strategi pricing yang kompetitif namun premium</h3>
+      <table>
+        <thead><tr><th>Tier</th><th>Produk</th><th>Range harga rekomendasi</th><th>Peran bisnis</th><th>Guardrail</th></tr></thead>
+        <tbody>
+          <tr><td>Signature Premium</td><td>Window box brownies, burnt cheesecake besar, birthday cake, hampers</td><td>Rp120–650 ribu</td><td>Margin, gifting, brand perception</td><td>Jangan diskon >20%. Tambah value lewat card, packaging, personalization.</td></tr>
+          <tr><td>Everyday Joy</td><td>Mini brownies, slice cheesecake, cookies cup, pudding, snack box</td><td>Rp18–55 ribu</td><td>Repeat purchase dan daily traffic</td><td>Kualitas sama, ukuran lebih kecil. Jangan bahan lebih murah.</td></tr>
+          <tr><td>Pintu Masuk</td><td>Tester kasir, small bites, mini bundle, tasting pack</td><td>Rp8–25 ribu</td><td>Trial, discovery, conversion</td><td>Bukan pusat profit. Tujuannya membuat orang percaya.</td></tr>
+          <tr><td>Beverage Attach</td><td>Kopi, teh, jus, seasonal drink Bogor</td><td>Rp18–35 ribu</td><td>Naikkan AOV dan dine-in</td><td>Menu pendek, konsisten, tidak mengalahkan bakery core.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="content" class="section alt">
+      <div class="eyebrow">Rekomendasi Konten & Komunikasi Brand</div>
+      <h2>Konten harus membuktikan janji, bukan cuma mengulang tagline</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Pilar 1 · Quality First</h3>
+          <p><strong>Pesan:</strong> bahan baik, rasa konsisten, dibuat dekat waktu konsumsi.</p>
+          <p><strong>Format:</strong> ingredient proof, batch baking, taste test, texture close-up, “made today”.</p>
+        </div>
+        <div class="card">
+          <h3>Pilar 2 · Togetherness</h3>
+          <p><strong>Pesan:</strong> dari dapur keluarga untuk momen keluarga.</p>
+          <p><strong>Format:</strong> pelanggan bawa kue untuk ulang tahun, meja keluarga, hampers, behind the founder.</p>
+        </div>
+        <div class="card">
+          <h3>Pilar 3 · Simple Joy</h3>
+          <p><strong>Pesan:</strong> kebahagiaan kecil yang terasa hangat.</p>
+          <p><strong>Format:</strong> slice + coffee moment, packing ASMR, customer reaction, “satu gigitan setelah hari panjang”.</p>
+        </div>
+      </div>
+      <div class="grid grid-2" style="margin-top:16px">
+        <div class="card">
+          <h3>Content mix bulanan</h3>
+          <ul>
+            <li>30% process & texture proof.</li>
+            <li>20% product education: size, rasa, pairing, shelf life.</li>
+            <li>20% founder/family/Bogor story.</li>
+            <li>15% customer occasion & UGC.</li>
+            <li>10% promo terbatas/tasting.</li>
+            <li>5% operational transparency: pre-order, delivery, sold out.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Contoh campaign launch</h3>
+          <ul>
+            <li><strong>“Rasa dari Rumah Bogor”</strong>: cerita asal dapur Umi.</li>
+            <li><strong>“Window Box Week”</strong>: edukasi packaging brownies rumah.</li>
+            <li><strong>“Fresh Batch Diary”</strong>: jam produksi, aroma, packing.</li>
+            <li><strong>“Kasedep Sadayana Tasting”</strong>: tester kecil untuk first-timer.</li>
+            <li><strong>“Bawa Pulang Bogor”</strong>: oleh-oleh premium non-generik.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="channels" class="section">
+      <div class="eyebrow">Channel Distribusi</div>
+      <h2>Prioritas channel setelah kedai pertama</h2>
+      <div class="grid grid-3">
+        <div class="card"><h3>1. Offline Kedai</h3><p>Trust engine utama. Fokus tasting, display hero product, dine-in ringan, minuman, dan review capture.</p><div class="score"><span style="width:95%"></span></div><p class="small">Prioritas: sangat tinggi</p></div>
+        <div class="card"><h3>2. WhatsApp Pre-order</h3><p>Channel repeat dan custom order. Butuh catalog, auto-reply, cut-off time, admin script, dan payment flow.</p><div class="score"><span style="width:90%"></span></div><p class="small">Prioritas: sangat tinggi</p></div>
+        <div class="card"><h3>3. Delivery Apps</h3><p>Bagus untuk discovery, tapi margin dan packaging harus dihitung. Pilih SKU yang tahan delivery.</p><div class="score"><span style="width:76%"></span></div><p class="small">Prioritas: tinggi, selektif</p></div>
+        <div class="card"><h3>4. B2B Snack Box</h3><p>Kantor, sekolah, event, komunitas. Butuh pricing sheet, sample kit, invoice, delivery promise.</p><div class="score"><span style="width:82%"></span></div><p class="small">Prioritas: tinggi setelah operasional stabil</p></div>
+        <div class="card"><h3>5. Oleh-oleh / Pop-up</h3><p>Hotel, villa Puncak, kampus, event lokal, komunitas kreatif. Cocok untuk cookies, brownies, hampers.</p><div class="score"><span style="width:72%"></span></div><p class="small">Prioritas: menengah-tinggi</p></div>
+        <div class="card"><h3>6. Marketplace</h3><p>Hanya untuk produk dry/shelf-stable: cookies, hampers tertentu, merchandise. Jangan kirim cheesecake jarak jauh dengan harapan dan doa.</p><div class="score"><span style="width:58%"></span></div><p class="small">Prioritas: selektif</p></div>
+      </div>
+    </section>
+
+    <section id="risk" class="section alt">
+      <div class="eyebrow">Kehati-hatian yang Harus Diperhatikan</div>
+      <h2>Risiko yang bisa diam-diam merusak brand</h2>
+      <div class="grid grid-3">
+        <div class="card"><h3>Overexpansion SKU</h3><p>Terlalu banyak menu membuat produksi kacau, stok bocor, dan kualitas tidak stabil. Launch dengan hero, bukan ensiklopedia kue.</p></div>
+        <div class="card"><h3>Premium palsu</h3><p>Packaging mahal tanpa rasa kuat akan cepat dibongkar konsumen. Premium harus terbukti dari rasa, bahan, tekstur, service, dan consistency.</p></div>
+        <div class="card"><h3>Diskon merusak persepsi</h3><p>Diskon besar boleh jadi menaikkan transaksi, tapi bisa menurunkan willingness to pay jangka panjang.</p></div>
+        <div class="card"><h3>Delivery damage</h3><p>Kue premium yang rusak di motor akan terlihat seperti tragedi kecil. Uji packaging sebelum masuk aplikasi delivery.</p></div>
+        <div class="card"><h3>Regulasi halal & label</h3><p>Petakan NIB, sertifikasi halal, PIRT/BPOM sesuai kategori, label komposisi, tanggal produksi, dan klaim nutrisi. Jangan main klaim kesehatan sembarangan.</p></div>
+        <div class="card"><h3>Founder-dependence</h3><p>Kalau semua rasa hanya hidup di tangan Umi tanpa sistem, scaling akan rapuh. Recipe Vault, taste test, dan SOP harus mulai sebelum launch.</p></div>
+      </div>
+    </section>
+
+    <section id="kpi" class="section">
+      <div class="eyebrow">KPI Pasca-Launch</div>
+      <h2>Dashboard yang perlu dipantau 90 hari pertama</h2>
+      <div class="kpi-grid">
+        <label class="kpi"><input type="checkbox"><span><strong>Daily revenue & AOV</strong><br><span class="small">Target awal: naik stabil mingguan, bukan cuma ramai opening.</span></span></label>
+        <label class="kpi"><input type="checkbox"><span><strong>Gross margin per SKU</strong><br><span class="small">Pisahkan bakery, beverage, snack box, hampers.</span></span></label>
+        <label class="kpi"><input type="checkbox"><span><strong>Repeat purchase 30/60/90 hari</strong><br><span class="small">Metric paling jujur untuk rasa dan value.</span></span></label>
+        <label class="kpi"><input type="checkbox"><span><strong>Waste & stockout rate</strong><br><span class="small">Waste tinggi = forecasting buruk; stockout hero = uang kabur.</span></span></label>
+        <label class="kpi"><input type="checkbox"><span><strong>Beverage attach rate</strong><br><span class="small">Berapa % pembeli bakery juga beli minuman.</span></span></label>
+        <label class="kpi"><input type="checkbox"><span><strong>Google Review velocity</strong><br><span class="small">Jumlah review baru/minggu dan rating rata-rata.</span></span></label>
+        <label class="kpi"><input type="checkbox"><span><strong>Complaint & refund rate</strong><br><span class="small">Pisahkan rasa, service, delivery, packaging.</span></span></label>
+        <label class="kpi"><input type="checkbox"><span><strong>Social conversion</strong><br><span class="small">Profile click, WA click, saves, shares, UGC, creator ROI.</span></span></label>
+        <label class="kpi"><input type="checkbox"><span><strong>B2B leads & close rate</strong><br><span class="small">Jumlah inquiry snack box, sample sent, conversion.</span></span></label>
+        <label class="kpi"><input type="checkbox"><span><strong>Brand guardrail</strong><br><span class="small">Diskon rata-rata, human touch compliance, taste audit score.</span></span></label>
+      </div>
+    </section>
+
+    <section id="sources" class="section alt">
+      <div class="eyebrow">Sumber Data & Catatan Metodologi</div>
+      <h2>Sumber yang digunakan</h2>
+      <p>Riset ini menggabungkan dokumen internal Kabeukina Umi, audit publik kompetitor, data makro, tren bakery/F&B, serta kanal digital. Harga dan menu publik bisa berubah, jadi lakukan audit ulang H-30 launch. Karena harga F&B bergerak diam-diam seperti cicilan yang pura-pura kecil.</p>
+      <div class="grid grid-2" style="margin-top:16px">
+        <div class="card">
+          <h3>Dokumen internal</h3>
+          <ul>
+            <li>Kabeukina Umi First Preview, April 2026: positioning, target audience, brand essence, visual identity, packaging direction.</li>
+            <li>Kabeukina Umi Brand Constitution, April 2026: resep sebagai hukum, premium konstan, Bogor roots, human hands, tier product.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Market & trend</h3>
+          <ul>
+            <li>BPS Statistik Penyediaan Makanan dan Minuman 2024, publikasi 2025.</li>
+            <li>CRIF Indonesia F&B Outlook 2025.</li>
+            <li>Bank Indonesia Consumer Survey 2025.</li>
+            <li>Lesaffre APAC Consumer Trends 2025.</li>
+            <li>Puratos Taste Tomorrow 2026 bakery trends.</li>
+            <li>Innova Market Insights Indonesia 2025.</li>
+            <li>PwC Voice of the Consumer 2025 Indonesia.</li>
+            <li>DataReportal Digital 2025 Indonesia; We Are Social Digital 2026 Indonesia.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Kompetitor lokal Bogor</h3>
+          <ul>
+            <li>Prouvé Patisserie: Instagram, public reviews/articles.</li>
+            <li>Softbite Cake: Instagram/public listing.</li>
+            <li>BunBun Bakery: website, public listings.</li>
+            <li>Mister & Misses Cakes, Spatula, Es Krim Durian Doto: public review aggregators.</li>
+            <li>Michelle Bakery, Mini Brown Cheese Cake: public delivery listings.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Kompetitor nasional</h3>
+          <ul>
+            <li>The Harvest: official store/product pages.</li>
+            <li>Dapur Cokelat: official product pages.</li>
+            <li>Ina Cookies: official marketplace store and brand description.</li>
+            <li>Holland Bakery: official website and public delivery listings.</li>
+            <li>Bittersweet by Najla, MAKO, Tous Les Jours: public listings/official channels as benchmark.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="insight warning">
+        <strong>Confidence note:</strong> Data makro dan tren cukup kuat. Data kompetitor lokal berbasis digital public audit, sehingga harus dilengkapi dengan mystery shopping langsung: beli produk, foto packaging, timbang gramasi, ukur service time, dan catat rasa secara blind. Riset meja bagus, tapi lidah tetap auditor yang paling kejam.
+      </div>
+    </section>
+
+    <div class="footer">
+      <p><strong>Output:</strong> Interactive HTML dashboard/report · disusun untuk keputusan launch Kabeukina Umi Juni 2026.</p>
+      <p class="print-note">Catatan cetak: beberapa fitur interaktif disembunyikan dalam mode print.</p>
+    </div>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('.filter');
+    const rows = document.querySelectorAll('#competitorTable tbody tr');
+    const search = document.getElementById('searchBox');
+    let current = 'all';
+
+    function applyFilter(){
+      const q = (search.value || '').toLowerCase();
+      rows.forEach(row => {
+        const type = row.dataset.type;
+        const text = row.textContent.toLowerCase();
+        const typeOk = current === 'all' || type === current;
+        const searchOk = !q || text.includes(q);
+        row.style.display = typeOk && searchOk ? '' : 'none';
+      });
+    }
+    buttons.forEach(btn => btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      current = btn.dataset.filter;
+      applyFilter();
+    }));
+    search.addEventListener('input', applyFilter);
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+  </script>
+</body>
+</html>
